@@ -1,0 +1,1 @@
+fetch('http://localhost:3000/cards').then(resp => resp.json()).then(resp => console.log(resp))
