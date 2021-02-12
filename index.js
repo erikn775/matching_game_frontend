@@ -26,5 +26,6 @@ function addCardsToDom(cardData){
         cardList.innerHTML += `<li>${faces[i]}</li>`;
     }
 }
-    
+
+  
 
