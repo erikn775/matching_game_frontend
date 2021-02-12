@@ -1,5 +1,5 @@
 const cardUrl = 'http://localhost:3000/cards/'
-const cardList = document.querySelector("#card-list");
+const cardList = document.querySelector(".grid-container");
 const searchButton = document.getElementById('submit');
 const dropDown = document.getElementById('themes')
 
@@ -20,26 +20,25 @@ class Card {
                 let mappedTheme = cardData.map(card => card.theme)
                 for(let i = 0; i < mappedId.length && i < mappedTheme.length; i++){
                     const newOption = document.createElement("option");
-                    newOption.id = `${mappedId[i]}`;
+                    newOption.value = `${mappedId[i]}`;
                     newOption.text = `${mappedTheme[i]}`;
                     dropDown.append(newOption);
                 }
             })
-            
-        
     }
 
-    fetchCards() {
-        fetch(cardUrl + cardLists())
+    static fetchCards() {
+        let theme = document.querySelector('#themes')
+        fetch(cardUrl + theme.value)
             .then(resp => resp.json())
-            .then(cardData => addCardsToDom(cardData))  
-    }
-
-    addCardsToDom(cardData){
-        const faces = cardData.faces
-        for(let i = 0; i < faces.length; i++){
-            cardList.innerHTML += `<li>${faces[i]}</li>`;
-        }
+            .then(cardData => {  
+                const faces = cardData.faces
+                for(let i = 0; i < faces.length; i++){
+                    const newDiv = document.createElement("div")
+                    newDiv.innerHTML = `${faces[i]}`
+                    cardList.append(newDiv);
+                }
+            })
     }
 
     
@@ -47,9 +46,7 @@ class Card {
   
 
 
-searchButton.addEventListener('click', function(){
-    fetchCards();
-})
+
 
 
 
