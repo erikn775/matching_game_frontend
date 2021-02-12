@@ -1,6 +1,7 @@
 const cardUrl = 'http://localhost:3000/cards/'
 const cardList = document.querySelector("#card-list");
-const searchButton = document.getElementById('submit')
+const searchButton = document.getElementById('submit');
+const dropDown = document.getElementById('themes')
 
 class Card {
     static all = []
@@ -12,16 +13,26 @@ class Card {
 
 
     static addCardDropDown() {
-        const newOption = document.createElement("option");
-        newOption.id = `${this.id}`;
-        newOption.text = `${this.theme}`
+        fetch(cardUrl)
+            .then(resp => resp.json())
+            .then(cardData => {
+                let mappedId = cardData.map(card => card.id)
+                let mappedTheme = cardData.map(card => card.theme)
+                for(let i = 0; i < mappedId.length && i < mappedTheme.length; i++){
+                    const newOption = document.createElement("option");
+                    newOption.id = `${mappedId[i]}`;
+                    newOption.text = `${mappedTheme[i]}`;
+                    dropDown.append(newOption);
+                }
+            })
+            
+        
     }
 
     fetchCards() {
         fetch(cardUrl + cardLists())
             .then(resp => resp.json())
-            .then(cardData => addCardsToDom(cardData))
-            
+            .then(cardData => addCardsToDom(cardData))  
     }
 
     addCardsToDom(cardData){
@@ -31,6 +42,7 @@ class Card {
         }
     }
 
+    
 }
   
 
@@ -39,10 +51,7 @@ searchButton.addEventListener('click', function(){
     fetchCards();
 })
 
-function cardLists() {
-    const query = document.querySelector(`#themes`)
-    return query.value
-}
+
 
 
 
