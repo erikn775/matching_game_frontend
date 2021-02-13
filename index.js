@@ -1,10 +1,10 @@
+
 window.addEventListener('DOMContentLoaded', function() {
-    Card.addCardDropDown();
+    addCardDropDown();
 })
 
 searchButton.addEventListener('click', function(){
-    Card.fetchCards();
-    
+    fetchCards();
 })
 
 

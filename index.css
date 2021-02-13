@@ -1,6 +1,6 @@
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(5, 235px);
     grid-gap: 10px;
     background-image: url("https://cdnb.artstation.com/p/assets/images/images/016/756/611/large/john-paul-12a.jpg?1553353856");
     padding: 10px;
