@@ -36,7 +36,10 @@ function fetchCards() {
         .then(resp => resp.json())
         .then(cardData => {  
             const cards = cardData.faces;
-            doubleCards(cards);
+            const double = doubleCards(cards);
+            shuffle(double);
+            
+            
             // for(let i = 0; i < faces.length; i++){
             //     const newDiv = document.createElement("div")
             //     newDiv.classList = "hidden"
@@ -51,26 +54,22 @@ function fetchCards() {
 }
 
 function doubleCards(cards){
-    let double = cards
+    let double = []
     for(let i = 0; i < cards.length; i++){
         double.push(cards[i])
+        double.push(cards[i])
     }
-    debugger
     return double
-    
 }
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
     
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
     
-        // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
     
-        // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
