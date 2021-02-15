@@ -11,7 +11,7 @@ let theme = document.querySelector('#themes')
 let flippedCard = document.getElementsByClassName('flipped')
 let firstCard;
 let secondCard;
-let clickCount;
+let clickCount = 0;
 let cardId;
 let cardTheme;
 
@@ -60,9 +60,12 @@ function resetBack(card){
     card.classList = 'hidden'
 }
 
+function resetClick(){
+    clickCount = 0;
+}
+
 function handleCardClick() {
     cardList.addEventListener('click', function(event){
-        clickCount = 0;
         clickCount += 1;
         if(clickCount === 1){
             const clickedDiv = document.getElementById(`${event.target.id}`)
@@ -83,6 +86,7 @@ function handleCardClick() {
 
 function matched(){
     if(firstCard === secondCard) {
+        resetClick();
         console.log('matched')
     }
     else{
@@ -90,6 +94,7 @@ function matched(){
             resetBack(flippedCard[0])
             resetBack(flippedCard[0])
         }, 1000);
+        resetClick();
         console.log('not matched')
     }
 }
