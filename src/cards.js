@@ -9,6 +9,7 @@ let openedCards = document.getElementsByClassName(".open")
 let shuffled = 0;
 let theme = document.querySelector('#themes')
 let flippedCard = document.getElementsByClassName('flipped')
+let matchedCard = document.getElementsByClassName('matched')
 let firstCard;
 let secondCard;
 let clickCount = 0;
@@ -56,8 +57,14 @@ function displayBacks(back){
 }
 
 function resetBack(card){
-    card.innerHTML = cardTheme[0]
-    card.classList = 'hidden'
+    if(card.classList === 'matched'){
+        //don't reset back
+    }
+    else{
+        card.innerHTML = cardTheme[0]
+        card.classList = 'hidden'
+    }
+    
 }
 
 function resetClick(){
@@ -86,7 +93,10 @@ function handleCardClick() {
 
 function matched(){
     if(firstCard === secondCard) {
+        flippedCard[0].classList = "matched"
+        flippedCard[0].classList = "matched"
         resetClick();
+        // changed class to matched
         console.log('matched')
     }
     else{
@@ -136,27 +146,19 @@ function shuffle(array) {
     return array;
 }
 
-function flippedCounter(){
-    if (flippedCard.length === 2){
-        console.log('worked')
+function gameOver(){
+    if(matchedCard.length === 20){
+        //game is over
+        //end timer
+        //end move count
+        //display ending block
     }
 }
 
 
 
 
-// function cardOpen() {
-//     openedCards.push(this);
-//     var len = openedCards.length;
-//     if(len === 2){
-//         moveCounter();
-//         if(openedCards[0].type === openedCards[1].type){
-//             matched();
-//         } else {
-//             unmatched();
-//         }
-//     }
-// };
+
 
   
 
