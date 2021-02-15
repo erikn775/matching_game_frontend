@@ -1,4 +1,5 @@
-const cardUrl = 'http://localhost:3000/cards/'
+const cardUrl = 'http://localhost:3000/card_stacks/'
+const cardStackUrl = '/cards'
 const cardList = document.querySelector(".grid-container");
 const searchButton = document.getElementById('submit');
 const dropDown = document.getElementById('themes')
@@ -7,7 +8,8 @@ let card = document.getElementsByClassName(".card")
 //let cards = [... card]
 const backCard = "&#126980"
 let openedCards = document.getElementsByClassName(".open")
-
+let shuffled = 0;
+let theme = document.querySelector('#themes')
 // let displayCard = function (){
 //     this.classList.toggle("open");
 //     this.classList.toggle("show");
@@ -19,36 +21,45 @@ function addCardDropDown() {
     fetch(cardUrl)
         .then(resp => resp.json())
         .then(cardData => {
-            let mappedId = cardData.map(card => card.id)
-            let mappedTheme = cardData.map(card => card.theme)
-            for(let i = 0; i < mappedId.length && i < mappedTheme.length; i++){
+            let mappedId = cardData[0]["id"];
+            let mappedTheme = cardData[0]["theme"];
+            
+            //add for loop back when multiple card stacks are created
                 const newOption = document.createElement("option");
-                newOption.value = `${mappedId[i]}`;
-                newOption.text = `${mappedTheme[i]}`;
+                newOption.value = `${mappedId}`;
+                newOption.text = `${mappedTheme}`;
                 dropDown.append(newOption);
-            }
+            
         })
 }
 
 function fetchCards() {
-    let theme = document.querySelector('#themes')
-    fetch(cardUrl + theme.value)
+    
+    fetch(cardUrl + theme.value + cardStackUrl)
         .then(resp => resp.json())
         .then(cardData => {  
-            const cards = cardData.faces;
+            
+            
+            const cards = cardData.map(card => card.face);
             const double = doubleCards(cards);
-            shuffle(double);
+            shuffled = shuffle(double);
             
-            
-            // for(let i = 0; i < faces.length; i++){
+            // for(let i = 0; i < shuffled.length; i++){
             //     const newDiv = document.createElement("div")
             //     newDiv.classList = "hidden"
-            //     newDiv.innerHTML = `${faces[i]}`
+            //     debugger
+            //     newDiv.innerHTML = `${shuffled[i]}`
             //     cardList.append(newDiv);
-            //     newDiv.addEventListener('click', function(){
-            //         newDiv.classList = "open"
+                
                     
-            //     })
+
+                    // if (event.target.classList.value === "hidden"){
+                    //     newDiv.classList = "open"
+                    //     newDiv.innerHTML = 
+                    // }
+                    
+                    
+                
             //}
         })   
 }
@@ -78,9 +89,46 @@ function shuffle(array) {
     return array;
 }
 
+function hideCard(card){
+    if (card.classList === "hidden") {
+        
+        card.append(backCard)
+    }
+}
+
+function flipCard(card1, card2){
+    window.addEventListener('click', function(event){
+        card1 = event.taget
+    })
+}
 
 
 
+function matched(card1, card2){
+    if(card1.classList === "open" && card2.classList === "open") {
+        if (card1.innerText === card2.innerText){
+            
+        }
+    }
+}
+
+function displayBacks() {
+    fetch(cardUrl)
+        .then(resp => resp.json())
+        .then(cardData => {
+            let cardId = cardData.map(card => card.id)
+            let cardTheme = cardData.map(card => card.back)
+            if (cardId == theme.value){
+                [20].forEach(i => Array(i).fill(i).forEach(_ => {
+                    const newDiv = document.createElement("div")
+                    newDiv.classList = "hidden"
+                    newDiv.innerHTML = cardTheme[0]
+                    cardList.append(newDiv);
+                  }))
+            }
+        
+        })
+}
 // function cardOpen() {
 //     openedCards.push(this);
 //     var len = openedCards.length;

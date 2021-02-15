@@ -4,6 +4,7 @@ window.addEventListener('DOMContentLoaded', function() {
 })
 
 searchButton.addEventListener('click', function(){
+    displayBacks();
     fetchCards();
 })
 
