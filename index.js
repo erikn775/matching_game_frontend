@@ -1,12 +1,15 @@
 
 window.addEventListener('DOMContentLoaded', function() {
     addCardDropDown();
+    flippedCounter();
 })
 
 searchButton.addEventListener('click', function(){
-    displayBacks();
+    fetchBacks();
     fetchCards();
     handleCardClick();
 })
+
+
 
 

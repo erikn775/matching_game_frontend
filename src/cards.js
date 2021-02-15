@@ -5,17 +5,16 @@ const searchButton = document.getElementById('submit');
 const dropDown = document.getElementById('themes')
 let count = 0
 let card = document.getElementsByClassName(".card")
-//let cards = [... card]
-const backCard = "&#126980"
 let openedCards = document.getElementsByClassName(".open")
 let shuffled = 0;
 let theme = document.querySelector('#themes')
+let flippedCard = document.getElementsByClassName('flipped')
+let firstCard;
+let secondCard;
+let clickCount;
+let cardId;
+let cardTheme;
 
-// let displayCard = function (){
-//     this.classList.toggle("open");
-//     this.classList.toggle("show");
-//     this.classList.toggle("disabled");
-// }
 
 
 function addCardDropDown() {
@@ -34,23 +33,76 @@ function addCardDropDown() {
         })
 }
 
+function fetchBacks() {
+    fetch(cardUrl)
+        .then(resp => resp.json())
+        .then(cardData => {
+            cardId = cardData.map(card => card.id)
+            cardTheme = cardData.map(card => card.back)
+            if (cardId == theme.value){
+                for(let i = 0; i < 20; i++){
+                   displayBacks(i); 
+                }
+            }
+        })
+}
+
+function displayBacks(back){
+    const newDiv = document.createElement("div")
+    newDiv.id = `${back}`
+    newDiv.classList = 'hidden'
+    newDiv.innerHTML = cardTheme[0]
+    cardList.append(newDiv);
+}
+
+function resetBack(card){
+    card.innerHTML = cardTheme[0]
+    card.classList = 'hidden'
+}
+
+function handleCardClick() {
+    cardList.addEventListener('click', function(event){
+        clickCount = 0;
+        clickCount += 1;
+        if(clickCount === 1){
+            const clickedDiv = document.getElementById(`${event.target.id}`)
+            firstCard = shuffled[`${event.target.id}`];
+            clickedDiv.classList = 'flipped'
+            clickedDiv.innerHTML = firstCard;
+        }
+        if(clickCount === 2){
+            const clickedDiv = document.getElementById(`${event.target.id}`)
+            secondCard = shuffled[`${event.target.id}`];
+            clickedDiv.classList = 'flipped'
+            clickedDiv.innerHTML = secondCard;
+            matched();
+        }
+    });
+    
+}
+
+function matched(){
+    if(firstCard === secondCard) {
+        console.log('matched')
+    }
+    else{
+        setTimeout(function(){
+            resetBack(flippedCard[0])
+            resetBack(flippedCard[0])
+        }, 1000);
+        console.log('not matched')
+    }
+}
+
+
 function fetchCards() {
     
     fetch(cardUrl + theme.value + cardStackUrl)
         .then(resp => resp.json())
         .then(cardData => {  
-            
-            
             const cards = cardData.map(card => card.face);
             const double = doubleCards(cards);
             shuffled = shuffle(double);
-            
-            // for(let i = 0; i < shuffled.length; i++){
-            //     const cardDiv = document.querySelector(`.hidden${i}`)
-            //     debugger
-            //     cardDiv.append(`${shuffled[i]}`) 
-                
-            // }
         })   
 }
 
@@ -79,70 +131,13 @@ function shuffle(array) {
     return array;
 }
 
-function hideCard(card){
-    if (card.classList === "hidden") {
-        
-        card.append(backCard)
+function flippedCounter(){
+    if (flippedCard.length === 2){
+        console.log('worked')
     }
 }
 
-function flipCard(card1, card2){
-    window.addEventListener('click', function(event){
-        card1 = event.taget
-    })
-}
 
-
-
-function matched(card1, card2){
-    if(card1.classList === "open" && card2.classList === "open") {
-        if (card1.innerText === card2.innerText){
-            
-        }
-    }
-}
-
-function displayBacks() {
-    fetch(cardUrl)
-        .then(resp => resp.json())
-        .then(cardData => {
-            let cardId = cardData.map(card => card.id)
-            let cardTheme = cardData.map(card => card.back)
-            if (cardId == theme.value){
-                for(let i = 0; i < 20; i++){
-                    const newDiv = document.createElement("div")
-                    newDiv.classList = `${i}`
-                    newDiv.innerHTML = cardTheme[0]
-                    cardList.append(newDiv);
-                }
-                // [20].forEach(i => Array(i).fill(i).forEach(_ => {
-                    
-                //     newDiv.classList = "hidden"
-                //     newDiv.innerHTML = cardTheme[0]
-                //     cardList.append(newDiv);
-                //   }))
-            }
-        
-        })
-}
-
-function handleCardClick() {
-    let clickCount = 0
-    cardList.addEventListener('click', function(event){
-        clickCount += 1
-        if(clickCount === 1){
-            const clickedDiv = document.getElementsByClassName(`${event.target.classList[0]}`)[0]
-            let firstCard = shuffled[`${event.target.classList[0]}`];
-            clickedDiv.innerHTML = firstCard;
-        }
-        if(clickCount === 2){
-            const clickedDiv = document.getElementsByClassName(`${event.target.classList[0]}`)[0]
-            let secondCard = shuffled[`${event.target.classList[0]}`];
-            clickedDiv.innerHTML = secondCard;
-        }
-    });
-    
-}
 
 
 // function cardOpen() {
