@@ -10,8 +10,9 @@
     background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
     padding: 20px 0;
-    font-size: 100px;
+    font-size: 75px;
     border-radius: 15px;
+    cursor: pointer;
   }
   .modal {
     display: none; /* Hidden by default */
@@ -25,6 +26,7 @@
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-image: url("https://media1.thehungryjpeg.com/thumbs2/ori_51470_ed8b2d0ab1e37699af04f992f7342f73b64543af_confetti-backgrounds.png");
   }
   
   .modal-content {
@@ -67,7 +69,11 @@
   .label{
     font-family: sans-serif;
   }
-  
+
+  h2 {
+    font-family: sans-serif;
+  }
+
   .select-css {
     display: block;
     font-size: 16px;

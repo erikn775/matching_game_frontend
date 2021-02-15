@@ -98,7 +98,6 @@ function matched(){
         flippedCard[0].classList = "matched"
         gameOver();
         resetClick();
-        // changed class to matched
         console.log('matched')
     }
     else{
@@ -150,13 +149,17 @@ function shuffle(array) {
 
 function startGame(){
     openModal.style.display = 'block'
+    searchButton.addEventListener('click', function(){
+        openModal.style.display = 'none'
+    })
 }
 
 function gameOver(){
     if(matchedCard.length === 20){
         endModal.style.display = 'block'
         replayButton.addEventListener('click', function(event){
-           console.log('clicked')
+           openModal.style.display = 'block'
+           endModal.style.display = 'none'
         })
         //game is over
         //end timer
