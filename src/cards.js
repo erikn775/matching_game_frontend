@@ -15,8 +15,9 @@ let secondCard;
 let clickCount = 0;
 let cardId;
 let cardTheme;
-
-
+const endModal = document.getElementById('endModal')
+const openModal = document.getElementById('openModal')
+const replayButton = document.getElementById('replay')
 
 function addCardDropDown() {
     fetch(cardUrl)
@@ -95,6 +96,7 @@ function matched(){
     if(firstCard === secondCard) {
         flippedCard[0].classList = "matched"
         flippedCard[0].classList = "matched"
+        gameOver();
         resetClick();
         // changed class to matched
         console.log('matched')
@@ -146,8 +148,16 @@ function shuffle(array) {
     return array;
 }
 
+function startGame(){
+    openModal.style.display = 'block'
+}
+
 function gameOver(){
     if(matchedCard.length === 20){
+        endModal.style.display = 'block'
+        replayButton.addEventListener('click', function(event){
+           console.log('clicked')
+        })
         //game is over
         //end timer
         //end move count

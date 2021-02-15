@@ -8,24 +8,27 @@
     <title>Matching Game 😁</title>
 </head>
 <body>
-    <div id="theme-list">
-        <label>Choose a card theme:</label>
-            <select name="theme" id="themes">
-            
-        </select>
-        <button id="submit">Display Cards</button>
+    <div id="openModal" class="modal">
+        <div class="modal-content" id="theme-list">
+            <h2>Emoji Matching Game</h2>
+            <label class="label">Choose a card theme:</label>
+                <select name="theme" id="themes" class="select-css">
+                
+            </select><br>
+            <button id="submit" class="button">Display Cards</button>
+        </div>
     </div>
-    
     <div class="grid-container">
         
     </div>
 
-    <div id="myModal" class="modal">
+    <div id="endModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Yay! You Won!🥳🥳🥳🥳</h2>
             <h3>Number of Moves:</h3>
             <h3>Time:</h3>
+            <button id="replay" class="button">Replay Game</button>
         </div>
       
       </div>
