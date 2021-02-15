@@ -10,6 +10,7 @@ const backCard = "&#126980"
 let openedCards = document.getElementsByClassName(".open")
 let shuffled = 0;
 let theme = document.querySelector('#themes')
+
 // let displayCard = function (){
 //     this.classList.toggle("open");
 //     this.classList.toggle("show");
@@ -45,22 +46,11 @@ function fetchCards() {
             shuffled = shuffle(double);
             
             // for(let i = 0; i < shuffled.length; i++){
-            //     const newDiv = document.createElement("div")
-            //     newDiv.classList = "hidden"
+            //     const cardDiv = document.querySelector(`.hidden${i}`)
             //     debugger
-            //     newDiv.innerHTML = `${shuffled[i]}`
-            //     cardList.append(newDiv);
+            //     cardDiv.append(`${shuffled[i]}`) 
                 
-                    
-
-                    // if (event.target.classList.value === "hidden"){
-                    //     newDiv.classList = "open"
-                    //     newDiv.innerHTML = 
-                    // }
-                    
-                    
-                
-            //}
+            // }
         })   
 }
 
@@ -119,16 +109,42 @@ function displayBacks() {
             let cardId = cardData.map(card => card.id)
             let cardTheme = cardData.map(card => card.back)
             if (cardId == theme.value){
-                [20].forEach(i => Array(i).fill(i).forEach(_ => {
+                for(let i = 0; i < 20; i++){
                     const newDiv = document.createElement("div")
-                    newDiv.classList = "hidden"
+                    newDiv.classList = `${i}`
                     newDiv.innerHTML = cardTheme[0]
                     cardList.append(newDiv);
-                  }))
+                }
+                // [20].forEach(i => Array(i).fill(i).forEach(_ => {
+                    
+                //     newDiv.classList = "hidden"
+                //     newDiv.innerHTML = cardTheme[0]
+                //     cardList.append(newDiv);
+                //   }))
             }
         
         })
 }
+
+function handleCardClick() {
+    let clickCount = 0
+    cardList.addEventListener('click', function(event){
+        clickCount += 1
+        if(clickCount === 1){
+            const clickedDiv = document.getElementsByClassName(`${event.target.classList[0]}`)[0]
+            let firstCard = shuffled[`${event.target.classList[0]}`];
+            clickedDiv.innerHTML = firstCard;
+        }
+        if(clickCount === 2){
+            const clickedDiv = document.getElementsByClassName(`${event.target.classList[0]}`)[0]
+            let secondCard = shuffled[`${event.target.classList[0]}`];
+            clickedDiv.innerHTML = secondCard;
+        }
+    });
+    
+}
+
+
 // function cardOpen() {
 //     openedCards.push(this);
 //     var len = openedCards.length;
