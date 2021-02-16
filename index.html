@@ -35,10 +35,22 @@
             <h3 id="end-move"></h3>
             <h3 id="end-timer">Time: </h3>
             <button id="replay" class="button">Replay Game</button>
+            <button id="leader-display" class="button">Post Score</button>
         </div>
-      
-      </div>
+    </div>
     
+    <div id="leader-form" style="display:none;">
+        <form id="form" name="form">
+            <h2>Add to Leaderboard</h2>
+            <hr>
+                <input type="text" name="name" placeholder="Name" id="name">
+                <input type="hidden" name="score" id="score">
+                <input type="hidden" name="time" id="time">
+                <input type="hidden" name="moves" id="moves">
+                <button id="leader-submit" class="button">Post Score</button>
+            </form>
+    </div>
+    <script type="text/javascript" src="src/leaderboard.js"></script>
     <script type="text/javascript" src="src/cards.js"></script>
     <script type="text/javascript" src="index.js"></script>
 </body>
