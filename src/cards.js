@@ -19,7 +19,10 @@ const endModal = document.getElementById('endModal');
 const openModal = document.getElementById('openModal');
 const replayButton = document.getElementById('replay');
 const moveDiv = document.getElementById("move-counter");
-const moveHeader = document.getElementById("end-move")
+const moveHeader = document.getElementById("end-move");
+const topTimer = document.getElementById("top-timer");
+const endTimer = document.getElementById("end-timer");
+let minute = 0, second = 0;
 
 function addCardDropDown() {
     fetch(cardUrl)
@@ -159,6 +162,7 @@ function gameOver(){
     if(matchedCard.length === 20){
         endModal.style.display = 'block'
         moveEndCounter();
+        endTimer.innerHTML = 'Time: ' + minute + ' min ' + second + ' sec';
         moveCount = 0;
         replayButton.addEventListener('click', function(event){
            openModal.style.display = 'block'
@@ -174,6 +178,20 @@ function moveTopCounter(){
 
 function moveEndCounter(){
     moveHeader.innerHTML = `Number of Moves: ${moveCount}`
+}
+
+function timer(){
+    
+    let interval;
+    interval = setInterval(function(){
+        topTimer.innerHTML = 'Timer: ' + minute + ' min ' + second + ' sec';
+        second++;
+        if(second === 60){
+            minute++;
+            second = 0;
+        }
+    }, 1000)
+    
 }
 
 
