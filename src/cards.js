@@ -164,6 +164,7 @@ function gameOver(){
         endModal.style.display = 'block'
         moveEndCounter();
         endTimer.innerHTML = 'Time: ' + minute + ' min ' + second + ' sec';
+        timerForm = 'Time: ' + minute + ' min ' + second + ' sec';
         moveCount = 0;
         replayButton.addEventListener('click', function(event){
            openModal.style.display = 'block'
@@ -179,6 +180,8 @@ function moveTopCounter(){
 
 function moveEndCounter(){
     moveHeader.innerHTML = `Number of Moves: ${moveCount}`
+    moveForm = moveCount
+
 }
 
 function timer(){
