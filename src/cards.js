@@ -28,15 +28,14 @@ function addCardDropDown() {
     fetch(cardUrl)
         .then(resp => resp.json())
         .then(cardData => {
-            let mappedId = cardData[0]["id"];
-            let mappedTheme = cardData[0]["theme"];
-            
-            //add for loop back when multiple card stacks are created
+            let mappedId = cardData.map(card => card.id);
+            let mappedTheme = cardData.map(card => card.theme);
+            for(let i = 0; i < mappedId.length && mappedTheme.length; i++){
                 const newOption = document.createElement("option");
-                newOption.value = `${mappedId}`;
-                newOption.text = `${mappedTheme}`;
+                newOption.value = mappedId[i];
+                newOption.text = mappedTheme[i];
                 dropDown.append(newOption);
-            
+            }
         })
 }
 
@@ -46,7 +45,7 @@ function fetchBacks() {
         .then(cardData => {
             cardId = cardData.map(card => card.id)
             cardTheme = cardData.map(card => card.back)
-            if (cardId == theme.value){
+            if (cardId[theme.value - 1] == theme.value){
                 for(let i = 0; i < 20; i++){
                    displayBacks(i); 
                 }
@@ -54,11 +53,21 @@ function fetchBacks() {
         })
 }
 
+function fetchCards() {
+    fetch(cardUrl + theme.value + cardStackUrl)
+        .then(resp => resp.json())
+        .then(cardData => {  
+            const cards = cardData.map(card => card.face);
+            const double = doubleCards(cards);
+            shuffled = shuffle(double);
+        })   
+}
+
 function displayBacks(back){
     const newDiv = document.createElement("div")
     newDiv.id = `${back}`
     newDiv.classList = 'hidden'
-    newDiv.innerHTML = cardTheme[0]
+    newDiv.innerHTML = cardTheme[theme.value - 1]
     cardList.append(newDiv);
 }
 
@@ -67,7 +76,7 @@ function resetBack(card){
         //don't reset back
     }
     else{
-        card.innerHTML = cardTheme[0]
+        card.innerHTML = cardTheme[theme.value - 1]
         card.classList = 'hidden'
     }
     
@@ -116,15 +125,7 @@ function matched(){
 }
 
 
-function fetchCards() {
-    fetch(cardUrl + theme.value + cardStackUrl)
-        .then(resp => resp.json())
-        .then(cardData => {  
-            const cards = cardData.map(card => card.face);
-            const double = doubleCards(cards);
-            shuffled = shuffle(double);
-        })   
-}
+
 
 function doubleCards(cards){
     let double = []
