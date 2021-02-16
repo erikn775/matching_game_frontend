@@ -8,6 +8,11 @@
     <title>Matching Game 😁</title>
 </head>
 <body>
+    <div class="topnav">
+        <a id="move-counter">Move Count: </a>
+        
+    </div>
+
     <div id="openModal" class="modal">
         <div class="modal-content" id="theme-list">
             <h2>Emoji Matching Game 😁🎈</h2>
@@ -26,7 +31,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Yay! You Won!🥳🥳🥳🥳</h2>
-            <h3>Number of Moves:</h3>
+            <h3 id="end-move"></h3>
             <h3>Time:</h3>
             <button id="replay" class="button">Replay Game</button>
         </div>

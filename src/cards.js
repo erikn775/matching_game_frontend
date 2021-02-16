@@ -1,23 +1,25 @@
-const cardUrl = 'http://localhost:3000/card_stacks/'
-const cardStackUrl = '/cards'
+const cardUrl = 'http://localhost:3000/card_stacks/';
+const cardStackUrl = '/cards';
 const cardList = document.querySelector(".grid-container");
 const searchButton = document.getElementById('submit');
-const dropDown = document.getElementById('themes')
-let count = 0
-let card = document.getElementsByClassName(".card")
-let openedCards = document.getElementsByClassName(".open")
+const dropDown = document.getElementById('themes');
+let moveCount = 0;
+let card = document.getElementsByClassName(".card");
+let openedCards = document.getElementsByClassName(".open");
 let shuffled = 0;
-let theme = document.querySelector('#themes')
-let flippedCard = document.getElementsByClassName('flipped')
-let matchedCard = document.getElementsByClassName('matched')
+let theme = document.querySelector('#themes');
+let flippedCard = document.getElementsByClassName('flipped');
+let matchedCard = document.getElementsByClassName('matched');
 let firstCard;
 let secondCard;
 let clickCount = 0;
 let cardId;
 let cardTheme;
-const endModal = document.getElementById('endModal')
-const openModal = document.getElementById('openModal')
-const replayButton = document.getElementById('replay')
+const endModal = document.getElementById('endModal');
+const openModal = document.getElementById('openModal');
+const replayButton = document.getElementById('replay');
+const moveDiv = document.getElementById("move-counter");
+const moveHeader = document.getElementById("end-move")
 
 function addCardDropDown() {
     fetch(cardUrl)
@@ -98,7 +100,7 @@ function matched(){
         flippedCard[0].classList = "matched"
         gameOver();
         resetClick();
-        console.log('matched')
+        moveTopCounter();
     }
     else{
         setTimeout(function(){
@@ -106,13 +108,12 @@ function matched(){
             resetBack(flippedCard[0])
         }, 1000);
         resetClick();
-        console.log('not matched')
+        moveTopCounter();
     }
 }
 
 
 function fetchCards() {
-    
     fetch(cardUrl + theme.value + cardStackUrl)
         .then(resp => resp.json())
         .then(cardData => {  
@@ -157,16 +158,27 @@ function startGame(){
 function gameOver(){
     if(matchedCard.length === 20){
         endModal.style.display = 'block'
+        moveEndCounter();
+        moveCount = 0;
         replayButton.addEventListener('click', function(event){
            openModal.style.display = 'block'
            endModal.style.display = 'none'
         })
-        //game is over
-        //end timer
-        //end move count
-        //display ending block
     }
 }
+
+function moveTopCounter(){
+    moveCount++;
+    moveDiv.innerHTML = `Move Count: ${moveCount}`;
+}
+
+function moveEndCounter(){
+    moveHeader.innerHTML = `Number of Moves: ${moveCount}`
+}
+
+
+
+
 
 
 
