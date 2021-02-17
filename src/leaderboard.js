@@ -2,7 +2,7 @@ const leaderUrl = 'http://127.0.0.1:3000/leaderboards'
 const formButton = document.getElementById("leader-display")
 const form = document.getElementById("leader-form")
 const submitButton = document.getElementById("leader-submit")
-let scoreForm = document.getElementById("score").value
+let scoreForm = document.getElementById("score")
 let timerForm = document.getElementById("time").value
 let moveForm = document.getElementById("moves").value
 let nameForm = document.getElementById("name")
@@ -32,23 +32,15 @@ function fetchleaderboard(){
                 newRow.appendChild(new2)
                 newRow.appendChild(new3)
                 newRow.appendChild(new4)
-                 
             }
-            
-
         })
         leaderModal.style.display = 'block'
 }
 
-function addToLeaderTable(){
-    
-    
-    dropDown.append(newOption);
-}
 
 function addToLeaderboard(){
     let name = nameForm.value;
-    let score = scoreForm;
+    let score = `${newScore}`;
     let time = timerForm;
     let moves = moveForm;
 
