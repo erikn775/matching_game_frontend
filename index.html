@@ -31,19 +31,20 @@
 
     <div id="endModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
             <h2>Yay! You Won!🥳🥳🥳🥳</h2>
             <h3 id="end-move"></h3>
             <h3 id="end-timer">Time: </h3>
             <h3 id="end-score">Score: </h3>
             <button id="replay" class="button">Replay Game</button>
-            <button id="leader-display" class="button">Post Score</button>
+            <button id="leader-post" class="button">Post Score</button>
+            <button id="leader-display" class="button">Leaderboard</button>
         </div>
     </div>
     
     <div id="leader-form" style="display:none;">
         <form id="form" name="form">
             <h2>Add to Leaderboard</h2>
+
             <hr>
                 <input type="text" name="name" placeholder="Name" id="name">
                 <input type="hidden" name="score" id="score">
@@ -56,7 +57,9 @@
     <div id="leaderModal" class="modal">
         <div class="leader-modal-content">
             <table id="leaderboard">
+                <span id="home">&#8249 &#127969</span>
                 <h2>Leaderboard</h2>
+                
                 <tbody id="table-body">
                     <tr>
                         <th>Name</th>

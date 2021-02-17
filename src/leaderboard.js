@@ -1,5 +1,5 @@
 const leaderUrl = 'http://127.0.0.1:3000/leaderboards'
-const formButton = document.getElementById("leader-display")
+const formButton = document.getElementById("leader-post")
 const form = document.getElementById("leader-form")
 const submitButton = document.getElementById("leader-submit")
 let scoreForm = document.getElementById("score")
@@ -8,7 +8,9 @@ let moveForm = document.getElementById("moves").value
 let nameForm = document.getElementById("name")
 const table = document.getElementById("table-body")
 const leaderModal = document.getElementById("leaderModal")
-
+const homeButton = document.getElementById("home")
+const leaderHome = document.getElementById("leader-show")
+const endLeaderButton = document.getElementById("leader-display")
 
 function fetchleaderboard(){
     fetch(leaderUrl)
@@ -34,7 +36,7 @@ function fetchleaderboard(){
                 newRow.appendChild(new4)
             }
         })
-        leaderModal.style.display = 'block'
+        
 }
 
 
