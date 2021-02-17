@@ -26,6 +26,7 @@ let minute = 0, second = 0;
 const endScore = document.getElementById("end-score")
 let score = 100000;
 let newScore;
+const leaderHome = document.getElementById("leader-show")
 
 function addCardDropDown() {
     fetch(cardUrl)

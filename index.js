@@ -17,6 +17,9 @@ submitButton.addEventListener('click', function(event){
     addToLeaderboard();
 })
 
-
+leaderHome.addEventListener('click', function(event){
+    event.preventDefault();
+    fetchleaderboard();
+})
 
 

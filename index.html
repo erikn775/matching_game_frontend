@@ -22,6 +22,7 @@
                 
             </select><br>
             <button id="submit" class="button">Display Cards</button>
+            <button id="leader-show" class="button">Display Leaderboard</button>
         </div>
     </div>
     <div class="grid-container">
@@ -50,6 +51,22 @@
                 <input type="hidden" name="moves" id="moves">
                 <button id="leader-submit" class="button">Post Score</button>
             </form>
+    </div>
+
+    <div id="leaderModal" class="modal">
+        <div class="leader-modal-content">
+            <table id="leaderboard">
+                <h2>Leaderboard</h2>
+                <tbody id="table-body">
+                    <tr>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Moves</th>
+                        <th>Time</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <script type="text/javascript" src="src/leaderboard.js"></script>
     <script type="text/javascript" src="src/cards.js"></script>

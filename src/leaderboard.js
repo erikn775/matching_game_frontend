@@ -6,14 +6,44 @@ let scoreForm = document.getElementById("score").value
 let timerForm = document.getElementById("time").value
 let moveForm = document.getElementById("moves").value
 let nameForm = document.getElementById("name")
-
-
+const table = document.getElementById("table-body")
+const leaderModal = document.getElementById("leaderModal")
 
 
 function fetchleaderboard(){
     fetch(leaderUrl)
         .then(resp => resp.json())
-        .then(leaderData => console.log(leaderData))
+        .then(leaderData => {
+            for(let i = 0; i < leaderData.length; i++){
+                const newRow = document.createElement("tr");
+                let rowData = leaderData[i]
+                
+                const new1 = document.createElement("td");
+                const new2 = document.createElement("td");
+                const new3 = document.createElement("td");
+                const new4 = document.createElement("td");
+                new1.textContent = rowData.name
+                new2.textContent = rowData.score
+                new3.textContent = rowData.moves
+                new4.textContent = rowData.time
+
+                table.appendChild(newRow)
+                newRow.appendChild(new1) 
+                newRow.appendChild(new2)
+                newRow.appendChild(new3)
+                newRow.appendChild(new4)
+                 
+            }
+            
+
+        })
+        leaderModal.style.display = 'block'
+}
+
+function addToLeaderTable(){
+    
+    
+    dropDown.append(newOption);
 }
 
 function addToLeaderboard(){
