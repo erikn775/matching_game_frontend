@@ -3,7 +3,6 @@ window.addEventListener('DOMContentLoaded', function() {
     startGame();
     addCardDropDown();
     displayForm();
-    newLeader();
 })
 
 searchButton.addEventListener('click', function(){
@@ -11,6 +10,11 @@ searchButton.addEventListener('click', function(){
     fetchCards();
     timer();
     handleCardClick();
+})
+
+submitButton.addEventListener('click', function(event){
+    event.preventDefault();
+    addToLeaderboard();
 })
 
 

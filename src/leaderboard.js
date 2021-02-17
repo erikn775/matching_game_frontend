@@ -6,21 +6,24 @@ let scoreForm = document.getElementById("score").value
 let timerForm = document.getElementById("time").value
 let moveForm = document.getElementById("moves").value
 let nameForm = document.getElementById("name")
-//let nameText = document.querySelector(#)
+
 
 
 
 function fetchleaderboard(){
-    fetch(cardUrl)
+    fetch(leaderUrl)
         .then(resp => resp.json())
         .then(leaderData => console.log(leaderData))
 }
 
 function addToLeaderboard(){
-       // event.preventDefault()
+    let name = nameForm.value;
+    let score = scoreForm;
+    let time = timerForm;
+    let moves = moveForm;
 
         let leaderObj = {
-            nameForm, scoreForm, timerForm, movesForm
+            name, score, time, moves
         }
 
         let config = {
@@ -35,7 +38,6 @@ function addToLeaderboard(){
         fetch(leaderUrl, config)
         .then(response => response.json())
         .then(response => console.log(response))
-    
 }
 
 function displayForm(){
@@ -44,11 +46,3 @@ function displayForm(){
     })
 }
 
-function newLeader(){
-    submitButton.addEventListener('click', function(event){
-        event.preventDefault()
-        console.log(nameForm.value)
-        console.log(moveForm)
-        console.log(timerForm)
-    })
-}

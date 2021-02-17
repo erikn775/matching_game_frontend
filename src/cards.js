@@ -24,7 +24,8 @@ const topTimer = document.getElementById("top-timer");
 const endTimer = document.getElementById("end-timer");
 let minute = 0, second = 0;
 const endScore = document.getElementById("end-score")
-let score = 100000
+let score = 100000;
+let newScore;
 
 function addCardDropDown() {
     fetch(cardUrl)
@@ -183,7 +184,7 @@ function moveTopCounter(){
 function moveEndCounter(){
     moveHeader.innerHTML = `Number of Moves: ${moveCount}`
     moveForm = moveCount
-    let newScore = score - (moveCount * 1923)
+    newScore = score - (moveCount * 1923)
     endScore.innerHTML = `Score: ${newScore}`
 }
 
