@@ -29,27 +29,18 @@ let newScore;
 let firstEvent;
 
 
-class Game {
+class Card {
 
-    constructor({face}){
-        this.face = face;
-    }
-
-    static addCardDropDown() {
-        fetch(cardUrl)
+    static fetchCards() {
+        fetch(cardUrl + theme.value + cardStackUrl)
             .then(resp => resp.json())
-            .then(cardData => {
-                let mappedId = cardData.map(card => card.id);
-                let mappedTheme = cardData.map(card => card.theme);
-                for(let i = 0; i < mappedId.length && mappedTheme.length; i++){
-                    const newOption = document.createElement("option");
-                    newOption.value = mappedId[i];
-                    newOption.text = mappedTheme[i];
-                    dropDown.append(newOption);
-                }
-            })
+            .then(cardData => {  
+                const cards = cardData.map(card => card.face);
+                const double = Card.doubleCards(cards);
+                shuffled = Card.shuffle(double);
+            })   
     }
-    
+
     static fetchBacks() {
         fetch(cardUrl)
             .then(resp => resp.json())
@@ -58,205 +49,123 @@ class Game {
                 cardTheme = cardData.map(card => card.back)
                 if (cardId[theme.value - 1] == theme.value){
                     for(let i = 0; i < 20; i++){
-                       displayBacks(i); 
+                       Card.displayBacks(i); 
                     }
                 }
             })
     }
 
-    static fetchCards() {
-        fetch(cardUrl + theme.value + cardStackUrl)
-            .then(resp => resp.json())
-            .then(cardData => {  
-                const cards = cardData.map(card => card.face);
-                const double = doubleCards(cards);
-                shuffled = shuffle(double);
-                
-            })   
+    static displayBacks(back){
+        const newDiv = document.createElement("div")
+        newDiv.id = `${back}`
+        newDiv.classList = 'hidden'
+        newDiv.innerHTML = cardTheme[theme.value - 1]
+        cardList.append(newDiv);
     }
 
-    static eventListeners(){
-        searchButton.addEventListener('click', function(event){
-            event.preventDefault();
-            Game.fetchBacks();
-            Game.fetchCards();
-            timer();
-            handleCardClick();
-        })
+    static resetBack(card){
+        if(card.classList === 'matched'){
+            //don't reset back
+        }
+        else{
+            card.innerHTML = cardTheme[theme.value - 1]
+            card.classList = 'hidden'
+        }
         
-        submitButton.addEventListener('click', function(event){
-            event.preventDefault();
-            Leaderboard.addToLeaderboard();
-            form.style.display = 'none'
-        })
-    }
-}
-
-
-
-
-
-function fetchCards() {
-    fetch(cardUrl + theme.value + cardStackUrl)
-        .then(resp => resp.json())
-        .then(cardData => {  
-            const cards = cardData.map(card => card.face);
-            const double = doubleCards(cards);
-            shuffled = shuffle(double);
-        })   
-}
-
-function displayBacks(back){
-    const newDiv = document.createElement("div")
-    newDiv.id = `${back}`
-    newDiv.classList = 'hidden'
-    newDiv.innerHTML = cardTheme[theme.value - 1]
-    cardList.append(newDiv);
-}
-
-function resetBack(card){
-    if(card.classList === 'matched'){
-        //don't reset back
-    }
-    else{
-        card.innerHTML = cardTheme[theme.value - 1]
-        card.classList = 'hidden'
     }
     
-}
-
-function resetClick(){
-    clickCount = 0;
-}
-
-function flipCardOne(event, clickedDiv){
-    firstEvent = event.target.id
-    firstCard = shuffled[`${firstEvent}`];
-    clickedDiv.classList = 'flipped'
-    clickedDiv.innerHTML = firstCard;
-}
-
-function flipCardTwo(event, clickedDiv){
-        secondCard = shuffled[`${event.target.id}`];  
+    static resetClick(){
+        clickCount = 0;
+    }
+    
+    static flipCardOne(event, clickedDiv){
+        firstEvent = event.target.id
+        firstCard = shuffled[`${firstEvent}`];
         clickedDiv.classList = 'flipped'
-        clickedDiv.innerHTML = secondCard;
-    if(flippedCard.length === 2){
-        matched();
+        clickedDiv.innerHTML = firstCard;
     }
-}
-
-function handleCardClick() {
-    cardList.addEventListener('click', function(event){
-        clickCount += 1;
-        let clickedDiv = document.getElementById(`${event.target.id}`)
-        if(clickCount === 1){
-            flipCardOne(event, clickedDiv);
+    
+    static flipCardTwo(event, clickedDiv){
+            secondCard = shuffled[`${event.target.id}`];  
+            clickedDiv.classList = 'flipped'
+            clickedDiv.innerHTML = secondCard;
+        if(flippedCard.length === 2){
+            Card.matched();
         }
-        if(clickCount === 2){
-            if(firstEvent != event.target.id){
-                flipCardTwo(event, clickedDiv);
+    }
+    
+    static handleCardClick() {
+        cardList.addEventListener('click', function(event){
+            clickCount += 1;
+            let clickedDiv = document.getElementById(`${event.target.id}`)
+            if(clickCount === 1){
+                Card.flipCardOne(event, clickedDiv);
             }
-            else{
-               clickCount = 1
+            if(clickCount === 2){
+                if(firstEvent != event.target.id){
+                    Card.flipCardTwo(event, clickedDiv);
+                }
+                else{
+                   clickCount = 1
+                }
             }
+            
+        });
+    }
+    
+    static matched(){
+        
+        if(firstCard === secondCard) {
+            flippedCard[0].classList = "matched"
+            flippedCard[0].classList = "matched"
+            Game.gameOver();
+            Card.resetClick();
+            Game.moveTopCounter();
+        }
+        else{
+            setTimeout(function(){
+                Card.resetBack(flippedCard[0])
+                Card.resetBack(flippedCard[0])
+            }, 1000);
+            Card.resetClick();
+            Game.moveTopCounter();
+        }
+    }
+    
+    
+    static doubleCards(cards){
+        let double = []
+        for(let i = 0; i < cards.length; i++){
+            double.push(cards[i])
+            double.push(cards[i])
+        }
+        return double
+    }
+    
+    static shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        
+        while (0 !== currentIndex) {
+        
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+        
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
         }
         
-    });
-}
-
-function matched(){
-    
-    if(firstCard === secondCard) {
-        flippedCard[0].classList = "matched"
-        flippedCard[0].classList = "matched"
-        gameOver();
-        resetClick();
-        moveTopCounter();
-    }
-    else{
-        setTimeout(function(){
-            resetBack(flippedCard[0])
-            resetBack(flippedCard[0])
-        }, 1000);
-        resetClick();
-        moveTopCounter();
-    }
-}
-
-
-
-
-function doubleCards(cards){
-    let double = []
-    for(let i = 0; i < cards.length; i++){
-        double.push(cards[i])
-        double.push(cards[i])
-    }
-    return double
-}
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-    
-    while (0 !== currentIndex) {
-    
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-    
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        return array;
     }
     
-    return array;
 }
 
-function startGame(){
-    openModal.style.display = 'block'
-    searchButton.addEventListener('click', function(){
-        openModal.style.display = 'none'
-    })
-}
 
-function gameOver(){
-    if(matchedCard.length === 20){
-        endModal.style.display = 'block'
-        moveEndCounter();
-        endTimer.innerHTML = 'Time: ' + minute + ' min ' + second + ' sec';
-        timerForm = 'Time: ' + minute + ' min ' + second + ' sec';
-        moveCount = 0;
-        replayButton.addEventListener('click', function(event){
-           openModal.style.display = 'block'
-           endModal.style.display = 'none'
-        })
-    }
-}
 
-function moveTopCounter(){
-    moveCount++;
-    moveDiv.innerHTML = `Move Count: ${moveCount}`;
-}
 
-function moveEndCounter(){
-    moveHeader.innerHTML = `Number of Moves: ${moveCount}`
-    moveForm = moveCount
-    newScore = score - (moveCount * 1654) - (minute * 7320) - (second * 122)
-    endScore.innerHTML = `Score: ${newScore}`
-}
 
-function timer(){
-    
-    let interval;
-    interval = setInterval(function(){
-        topTimer.innerHTML = 'Timer: ' + minute + ' min ' + second + ' sec';
-        second++;
-        if(second === 60){
-            minute++;
-            second = 0;
-        }
-    }, 1000)
-    
-}
+
+
 
 
 
