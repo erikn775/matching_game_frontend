@@ -53,19 +53,6 @@ class Leaderboard {
             
     }
 
-    // addToDom(){
-    //     const new1 = this.element.textContent = this.name;
-    //     const new2 = this.element.textContent = this.score;
-    //     const new3 = this.element.textContent = this.moves;
-    //     const new4 = this.element.textContent = this.time;
-
-    //     this.table.appendChild(newRow)
-    //     this.newRow.appendChild(new1) 
-    //     this.newRow.appendChild(new2)
-    //     this.newRow.appendChild(new3)
-    //     this.newRow.appendChild(new4)
-    // }
-
     static addToLeaderboard(){
         let name = nameForm.value;
         let score = `${newScore}`;
@@ -90,16 +77,8 @@ class Leaderboard {
             .then(response => console.log(response))
     }
     
-    displayForm(){
-        formButton.addEventListener('click', function(){
-            form.style.display = 'block';
-        })
-    }
     
-    displayLeaderboard(){
-        leaderModal.style.display = 'block'
-    }
-
+    
     static eventListeners(){
         leaderHome.addEventListener('click', function(event){
             event.preventDefault();
@@ -112,7 +91,29 @@ class Leaderboard {
             leaderModal.style.display = 'block'
         })
 
+        homeButton.addEventListener('click', function(event){
+            event.preventDefault();
+            leaderModal.style.display = 'none'
+        })
         
+        endLeaderButton.addEventListener('click', function(event){
+            event.preventDefault();
+            if(Leaderboard.all.length === 0){
+                Leaderboard.fetchleaderboard();
+            }
+            else{
+                Leaderboard.all;
+            }
+            leaderModal.style.display = 'block'
+        })
+        
+        replayButton.addEventListener('click', function(){
+            endModal.style.display = 'none'
+        })
+
+        formButton.addEventListener('click', function(){
+            form.style.display = 'block';
+        })
     }
 }
 

@@ -1,25 +1,23 @@
 
 window.addEventListener('DOMContentLoaded', function() {
     startGame();
-    addCardDropDown();
-    //displayForm();
-    //fetchleaderboard();
+    Game.addCardDropDown();
     Leaderboard.eventListeners();
 })
 
 searchButton.addEventListener('click', function(event){
     event.preventDefault();
-    fetchBacks();
-    fetchCards();
+    Game.fetchBacks();
+    Game.fetchCards();
     timer();
     handleCardClick();
 })
 
 submitButton.addEventListener('click', function(event){
     event.preventDefault();
-    addToLeaderboard();
+    Leaderboard.addToLeaderboard();
     form.style.display = 'none'
-    displayLeaderboard();
+    //displayLeaderboard();
 })
 
 
@@ -32,15 +30,3 @@ submitButton.addEventListener('click', function(event){
 //     leaderModal.style.display = 'block'
 // })
 
-homeButton.addEventListener('click', function(event){
-    event.preventDefault();
-    leaderModal.style.display = 'none'
-})
-
-endLeaderButton.addEventListener('click', function(){
-    displayLeaderboard();
-})
-
-replayButton.addEventListener('click', function(){
-    endModal.style.display = 'none'
-})
