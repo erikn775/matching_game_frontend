@@ -26,6 +26,7 @@ let minute = 0, second = 0;
 const endScore = document.getElementById("end-score")
 let score = 100000;
 let newScore;
+let firstEvent;
 
 
 class Game {
@@ -128,27 +129,43 @@ function resetClick(){
     clickCount = 0;
 }
 
+function flipCardOne(event, clickedDiv){
+    firstEvent = event.target.id
+    firstCard = shuffled[`${firstEvent}`];
+    clickedDiv.classList = 'flipped'
+    clickedDiv.innerHTML = firstCard;
+}
+
+function flipCardTwo(event, clickedDiv){
+        secondCard = shuffled[`${event.target.id}`];  
+        clickedDiv.classList = 'flipped'
+        clickedDiv.innerHTML = secondCard;
+    if(flippedCard.length === 2){
+        matched();
+    }
+}
+
 function handleCardClick() {
     cardList.addEventListener('click', function(event){
         clickCount += 1;
+        let clickedDiv = document.getElementById(`${event.target.id}`)
         if(clickCount === 1){
-            const clickedDiv = document.getElementById(`${event.target.id}`)
-            firstCard = shuffled[`${event.target.id}`];
-            clickedDiv.classList = 'flipped'
-            clickedDiv.innerHTML = firstCard;
+            flipCardOne(event, clickedDiv);
         }
         if(clickCount === 2){
-            const clickedDiv = document.getElementById(`${event.target.id}`)
-            secondCard = shuffled[`${event.target.id}`];
-            clickedDiv.classList = 'flipped'
-            clickedDiv.innerHTML = secondCard;
-            matched();
+            if(firstEvent != event.target.id){
+                flipCardTwo(event, clickedDiv);
+            }
+            else{
+               clickCount = 1
+            }
         }
+        
     });
-    
 }
 
 function matched(){
+    
     if(firstCard === secondCard) {
         flippedCard[0].classList = "matched"
         flippedCard[0].classList = "matched"
