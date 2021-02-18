@@ -185,7 +185,7 @@ function moveTopCounter(){
 function moveEndCounter(){
     moveHeader.innerHTML = `Number of Moves: ${moveCount}`
     moveForm = moveCount
-    newScore = score - (moveCount * 923) - (minute * 5340) - (second * 89)
+    newScore = score - (moveCount * 1654) - (minute * 7320) - (second * 122)
     endScore.innerHTML = `Score: ${newScore}`
 }
 
