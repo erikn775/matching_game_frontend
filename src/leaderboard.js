@@ -1,4 +1,4 @@
-const leaderUrl = 'http://127.0.0.1:3000/leaderboards'
+const leaderUrl = 'https://hidden-cliffs-65559.herokuapp.com/leaderboards'
 const formButton = document.getElementById("leader-post")
 const form = document.getElementById("leader-form")
 const submitButton = document.getElementById("leader-submit")

@@ -1,4 +1,4 @@
-const cardUrl = 'http://127.0.0.1:3000/card_stacks/';
+const cardUrl = 'https://hidden-cliffs-65559.herokuapp.com/card_stacks/';
 const cardStackUrl = '/cards';
 const cardList = document.querySelector(".grid-container");
 const searchButton = document.getElementById('submit');
