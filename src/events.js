@@ -22,7 +22,7 @@ function eventListeners(){
         fetchBacks();
         fetchCards();
         timer();
-        handleCardClick();
+        
     });
     
     submitButton.addEventListener('click', function(event){
@@ -49,7 +49,7 @@ function eventListeners(){
         
     });
 
-    replayButton.addEventListener('click', function(event){
+    replayButton.addEventListener('click', function(){
         openModal.style.display = 'block'
         endModal.style.display = 'none'
         stopTimer();

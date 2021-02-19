@@ -140,6 +140,8 @@ function stopTimer() {
 }
 
 function clearBoard(){
-    matchedDiv.remove();
+    for(let i = 0; i < 20; i++){
+        matchedDiv[0].remove()
+    }
     shuffled = 0;
 }
