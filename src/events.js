@@ -33,20 +33,24 @@ function eventListeners(){
     });
 
     cardList.addEventListener('click', function(event){
-        clickCount += 1;
-        let clickedDiv = document.getElementById(`${event.target.id}`)
-        if(clickCount === 1){
-            flipCardOne(event, clickedDiv);
+        if(event.target.classList.value === "matched"){
+            
         }
-        if(clickCount >= 2){
-            if(firstEvent != event.target.id){
-                flipCardTwo(event, clickedDiv);
+        else {
+            clickCount += 1;
+            let clickedDiv = document.getElementById(`${event.target.id}`)
+            if(clickCount === 1){
+                flipCardOne(event, clickedDiv);
             }
-            else{
-               clickCount = 1
+            if(clickCount >= 2){
+                if(firstEvent != event.target.id){
+                    flipCardTwo(event, clickedDiv);
+                }
+                else{
+                clickCount = 1
+                }
             }
         }
-        
     });
 
     replayButton.addEventListener('click', function(){

@@ -122,7 +122,6 @@ function moveEndCounter(){
 }
 
 function timer(){
-    
     interval = setInterval(function(){
         topTimer.innerHTML = 'Timer: ' + minute + ' min ' + second + ' sec';
         second++;
@@ -145,3 +144,4 @@ function clearBoard(){
     }
     shuffled = 0;
 }
+
