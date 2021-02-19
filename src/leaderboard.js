@@ -11,6 +11,7 @@ const leaderModal = document.getElementById("leaderModal")
 const homeButton = document.getElementById("home")
 const leaderHome = document.getElementById("leader-show")
 const endLeaderButton = document.getElementById("leader-display")
+let interval;
 
 class Leaderboard {
     static all = []
